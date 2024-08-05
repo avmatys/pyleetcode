@@ -19,6 +19,7 @@ class Solution:
     @timeit
     def kthDistinct(self, arr: List[str], k: int) -> str:
         str_count = {}
+        # Find frequency of each str
         for elem_str in arr:
             if elem_str in str_count:
                 str_count[elem_str] += 1
@@ -26,6 +27,7 @@ class Solution:
                 str_count[elem_str] = 1
         
         kth_str = ""
+        # Iterate in the correct order (initial array) and return K th str
         for elem_str in arr:
             if str_count[elem_str] == 1:
                 k -= 1
@@ -41,6 +43,7 @@ class Solution:
         unique_set.add(arr[0])
         non_unique_set = set()
 
+        # Find unique and non unique elements
         for i in range(1, len(arr)):
             if arr[i] in unique_set:
                 unique_set.remove(arr[i])
@@ -48,6 +51,11 @@ class Solution:
             elif arr[i] not in non_unique_set:
                 unique_set.add(arr[i])
 
+        # Simple validation to avoid loop
+        if len(unique_set) < k:
+            return ""
+        
+        # Find kth element in the original array
         kth_str = ""
         for i in range(len(arr)):
             if arr[i] in unique_set:
