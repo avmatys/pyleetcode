@@ -88,6 +88,3 @@ if __name__ == '__main__':
         input = case[0]
         expected = case[1]
         judge(solution.generateParenthesisIterative(input), expected)
-
-    
-   
