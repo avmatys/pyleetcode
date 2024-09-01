@@ -45,6 +45,42 @@ class Solution:
         # Get substring
         i, j = substr_idxs
         return s[i : j + 1]
+    
+
+    # Better approach
+    def longestPalindrome2(self, s: str) -> str:
+        
+        n = len(s)
+
+        # Check if we have a palindrome near the center
+        # Center can be 2 same symbols, that's why we have 2 params - left and right
+        def expand(left: int, right: int) -> int:
+            left_idx = left
+            right_idx = right
+            while left_idx >= 0 and right_idx < n and s[left_idx] == s[right_idx]:
+                left_idx -= 1
+                right_idx += 1
+            return right_idx - left_idx - 1 # Length of the substr
+
+        # Process each symbol as a center
+        answer = (0,0) # Set first as a default value
+        for i in range(n):
+            # Odd
+            odd_len = expand(i, i)
+            curr_len = answer[1] - answer[0] + 1
+            if odd_len > curr_len:
+                radius = odd_len // 2
+                answer = (i - radius, i + radius)
+            # Even
+            even_len = expand(i, i + 1)
+            curr_len = answer[1] - answer[0] + 1
+            if even_len > curr_len:
+                radius = (even_len // 2) - 1
+                answer = (i - radius, i + radius + 1)
+        
+        # Get substring
+        i, j = answer
+        return s[i : j + 1]
 
 
 def judge(result, expected):
@@ -55,12 +91,13 @@ def judge(result, expected):
 if __name__ == '__main__':
     solution = Solution()
     cases = [
-                ("babac", "aba")
+                ("babac", "bab"),
+                ("cbbd", "bb")
             ]
     for case in cases:
         input = case[0]
         expected = case[1]
-        judge(solution.longestPalindrome(input), expected)
+        judge(solution.longestPalindrome2(input), expected)
 
     
    
