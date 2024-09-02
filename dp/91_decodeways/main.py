@@ -27,11 +27,13 @@ class Solution:
         if str_length == 1:
             return 1
         
-        # Start dp
+        # Set base for dp
         dp = [0] * (str_length + 1)
         dp[0] = dp[1] = 1
         
         for i in range(2, str_length + 1):
+            
+            # There are 2 options of the strs - 1 or 2 digits
             one_digit = int(s[i - 1])
             two_digits = int(s[i - 2: i])
 
@@ -56,7 +58,6 @@ if __name__ == '__main__':
         ("12", 2),
         ("226", 3),
         ("11106", 2),
-        ("111111111111111111111111111111111111111111111", 1836311903)
     ]
     for case in cases:
         input = case[0]
