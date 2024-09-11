@@ -12,15 +12,21 @@ def timeit(func):
         return value
     return wrapper
 
-# https://leetcode.com/problems/single-number/description
+# https://leetcode.com/problems/contains-duplicate/description
 class Solution:
 
     @timeit
-    def singleNumber(self, nums: List[int]) -> int:
-        result = 0
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        existing = set()
         for num in nums:
-            result ^= num
-        return result
+            if num in existing:
+                return True
+            existing.add(num)
+        return False
+    
+    @timeit
+    def containsDuplicate2(self, nums: List[int]) -> bool:
+        return len(set(nums)) != len(nums)
         
 
 def judge(result, expected):
@@ -31,13 +37,14 @@ def judge(result, expected):
 if __name__ == '__main__':
     solution = Solution()
     cases = [
-        ([2,2,1], 1),
-        ([4,1,2,1,2], 4)
+        ([1,2,3,1], True),
+        ([4,3,2,1,5], False)
     ]
     for case in cases:
         input = case[0]
         expected = case[1]
-        judge(solution.singleNumber(input), expected)
+        judge(solution.containsDuplicate(input), expected)
+        judge(solution.containsDuplicate2(input), expected)
 
     
    
