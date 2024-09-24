@@ -1,6 +1,6 @@
 from typing import List
 from datetime import datetime
-
+from collections import deque
 
 # Track execution time of the function
 def timeit(func):
@@ -25,15 +25,37 @@ class Solution:
                 return
             else:
                 for num in nums:
-                    current.append(num)
+                    next_current = current[:]
+                    next_current.append(num)
                     next_nums = nums[:]
                     next_nums.remove(num)
-                    generate(current, next_nums)
-                    current.pop()
+                    generate(next_current, next_nums)
+                    #current.pop()
     
         generate([], nums)
         return result
+
+
+    def permute2(self, nums: List[int]) -> List[List[int]]:
+
+        # Store new task here
+        queue = deque()
+        queue.append((nums, []))
+
+        # Store path here
+        result = []
+        while queue:
+            curr_nums, curr_path = queue.popleft()
+            if len(curr_nums) == 0:
+                result.append(curr_path)
+            else:
+                for i in range(len(curr_nums)):
+                    next_nums = curr_nums[:i] + curr_nums[i+1:]
+                    next_path = curr_path + [curr_nums[i]]
+                    queue.append((next_nums, next_path))
         
+        return result
+  
 
 
 def judge(result, expected):
@@ -51,7 +73,7 @@ if __name__ == '__main__':
     for case in cases:
         input = case[0]
         expected = case[1]
-        judge(solution.permute(input), expected)
+        judge(solution.permute2(input), expected)
 
     
    
