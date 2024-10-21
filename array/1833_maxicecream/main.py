@@ -37,8 +37,8 @@ class Solution:
                 nums_count[nums[i]] -= 1
             return result
 
+        # Sort costs
         sorter_costs = count_sort(costs)
-        print(sorter_costs)
         total_count = 0
         for cost in sorter_costs:
             if cost <= coins:
