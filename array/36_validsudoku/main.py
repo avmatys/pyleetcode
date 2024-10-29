@@ -25,7 +25,7 @@ class Solution:
 
         # Validate line and column
         square_status = [[-1 for _ in range(square_size)] for _ in range(square_size)]
-        for idx in range(9):
+        for idx in range(board_size):
             row_idx = idx 
             col_idx = idx
             # Check row

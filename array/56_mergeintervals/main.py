@@ -33,7 +33,6 @@ class Solution:
                 else:
                     result.append(latest_interval)
                     result.append(interval)
-
         return result
 
 
