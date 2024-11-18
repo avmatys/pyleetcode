@@ -27,7 +27,6 @@ class Solution:
         result[1] = max(nums[0], nums[1])
         for i in range(2, n):
             result[i] = max(nums[i] + result[i - 2], result[i - 1])
-        print(result)
         return result[n-1]
     
 
