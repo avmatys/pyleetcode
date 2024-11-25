@@ -18,17 +18,18 @@ class Solution:
 
     @timeit
     def removeDuplicateLetters(self, s: str) -> str:
+
         result = [] # Result set which acts as a stack
         visited = set() # Stores chars which are in the stack for quick check
-        idxs = [-1] * 26 # Store idx of each character in the initial string
+        lastIdx = [-1] * 26 # Store idx of each character in the initial string
         
         for i, ch in enumerate(s):
-            idxs[ord(ch) - ord('a')] = i
+            lastIdx[ord(ch) - ord('a')] = i
 
         for i, ch in enumerate(s):
             if ch in visited:
                 continue
-            while result and result[-1] > ch and i < idxs[ord(result[-1]) - ord('a')]:
+            while result and result[-1] > ch and i < lastIdx[ord(result[-1]) - ord('a')]:
                 visited.remove(result.pop())           
             visited.add(ch)
             result.append(ch) 

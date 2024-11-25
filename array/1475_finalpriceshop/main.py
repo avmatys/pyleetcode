@@ -13,20 +13,22 @@ def timeit(func):
     return wrapper
 
 
-# https://leetcode.com/problems/next-greater-element-ii/
+# https://leetcode.com/problems/final-prices-with-a-special-discount-in-a-shop/
 class Solution:
 
     @timeit
-    def nextGreaterElements(self, nums: List[int]) -> List[int]:
-        n = len(nums)
-        result = [-1] * n
-        stack = [] # Store in the stack index instead of value
-        for i in range(2 * n - 1, -1, -1):
-            cmp_i = i % n
-            while stack and nums[cmp_i] >= nums[stack[-1]]:
-                stack.pop()
-            result[cmp_i] = nums[stack[-1]] if stack else -1
-            stack.append(cmp_i)
+    def finalPrices(self, prices: List[int]) -> List[int]:
+      
+        n = len(prices)
+        result = [0] * n
+        stack = []
+
+        for i in range(n - 1, -1, -1):
+            price = prices[i]
+            while stack and prices[stack[-1]] > price:
+               stack.pop()
+            result[i] = price - prices[stack[-1]] if stack else price
+            stack.append(i)
         return result
 
 
@@ -38,13 +40,13 @@ def judge(result, expected):
 if __name__ == '__main__':
     solution = Solution()
     cases = [
-             ([1,2,1], [2,-1,2]),
-             ([1,2,3,4,3], [2,3,4,-1,4])
+             ([1,2,3,4,5], [1,2,3,4,5]),
+             ([8,4,6,2,3], [4,2,4,2,3])
     ]
     for case in cases:
         input = case[0]
         expected = case[1]
-        judge(solution.nextGreaterElements(input), expected)
+        judge(solution.finalPrices(input), expected)
 
     
    
