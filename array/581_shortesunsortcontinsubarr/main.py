@@ -65,21 +65,21 @@ class Solution:
         
         # Find right index - from start to end        
         right = -1
-        prev_elem = nums[0]
+        max_elem = nums[0]
         for i in range(1, n):
-            if nums[i] < prev_elem:
+            if nums[i] < max_elem:
                 right = i
             else:
-                prev_elem = nums[i]
+                max_elem = nums[i]
 
         # Find left index - from end to start
         left = 0
-        next_elem = nums[n - 1]
+        min_elem = nums[n - 1]
         for i in range(n - 2, -1, -1):
-            if next_elem < nums[i]:
+            if min_elem < nums[i]:
                 left = i
             else:
-                next_elem = nums[i]
+                min_elem = nums[i]
         
         return right - left + 1
 
