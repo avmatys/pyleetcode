@@ -39,7 +39,6 @@ class Solution:
 
         first_cnt = 0
         second_cnt = 0
-        print(f"{first} {second}")
         for num in nums:
             if num == first:
                 first_cnt += 1
