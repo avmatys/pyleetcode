@@ -22,10 +22,9 @@ class Solution:
         sorted_nums = sorted(nums)
         size = len(sorted_nums)
         def generate_subset(subset, start_idx, k):
-            print(f"{subset} {start_idx} {k}")
             result.append(subset[:])
             for i in range(start_idx, size):
-                if i == start_idx or nums[i-1] != nums[i]:
+                if i == start_idx or sorted_nums[i-1] != sorted_nums[i]:
                     subset.append(sorted_nums[i])
                     generate_subset(subset, i + 1, k + 1)
                     subset.pop()
