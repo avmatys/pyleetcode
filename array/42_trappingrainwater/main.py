@@ -12,7 +12,7 @@ def timeit(func):
         return value
     return wrapper
 
-# https://leetcode.com/problems/candy/description/
+# https://leetcode.com/problems/trapping-rain-water/description/
 class Solution:
 
     @timeit
