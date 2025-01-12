@@ -22,7 +22,7 @@ class Solution:
         for char in s:
             if char in brackets.keys():
                 seq.append(char)
-            elif char != brackets[seq.pop()]:
+            elif not seq or char != brackets[seq.pop()]:
                 return False
         return len(seq) == 0
 
