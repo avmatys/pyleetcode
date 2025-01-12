@@ -22,7 +22,7 @@ class Solution:
             return len(unique_nums)
         starts = []
         for num in unique_nums:
-            if num - 1 not in unique_nums:
+            if num - 1 not in unique_nums and num + 1 in unique_nums:
                 starts.append(num)
         max_len = 1
         for start_num in starts:
