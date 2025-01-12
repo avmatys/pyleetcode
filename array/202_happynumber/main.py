@@ -12,21 +12,25 @@ def timeit(func):
         return value
     return wrapper
 
-# https://leetcode.com/problems/valid-anagram/description/
+# https://leetcode.com/problems/happy-number/?
 class Solution:
 
     @timeit
-    def isAnagram(self, s: str, t: str) -> bool:
-        if (len(s) != len(t)):
-            return False
-        chars = [0] * 128
-        for char in s:
-           chars[ord(char)] += 1
-        for char in t:
-            chars[ord(char)] -= 1
-            if chars[ord(char)] < 0:
-                return False
-        return True
+    def isHappy(self, n: int) -> bool:
+        def next_number(number):
+            sum_squares = 0
+            while number:
+                digit = number % 10
+                sum_squares += digit ** 2
+                number //= 10
+            return sum_squares
+        nums = set()
+        while n not in nums:
+            nums.add(n)
+            n = next_number(n)
+            if n == 1:
+                return True
+        return False
         
     
 def judge(result, expected):
@@ -37,13 +41,13 @@ def judge(result, expected):
 if __name__ == '__main__':
     solution = Solution()
     cases = [
-        (("anagram", "nagaram"), True),
-        (("rat", "car"), False)
+        (19, True),
+        (2, False)
     ]
     for case in cases:
         input = case[0]
         expected = case[1]
-        judge(solution.isAnagram(*input), expected)
+        judge(solution.isHappy(input), expected)
 
 
     
