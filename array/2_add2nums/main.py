@@ -23,7 +23,7 @@ class ListNode:
         self.next = None
 
 class Solution:
-    
+
     @timeit
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
         result_head = ListNode(0)
