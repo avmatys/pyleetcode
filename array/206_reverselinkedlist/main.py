@@ -16,7 +16,7 @@ def judge(result, expected):
     print(f'Result {result} Expected {expected}')
     assert result == expected
 
-# https://leetcode.com/problems/partition-list/
+# https://leetcode.com/problems/reverse-linked-list/description/
 class ListNode:
      def __init__(self, val=0, next=None):
         self.val = val
@@ -25,23 +25,15 @@ class ListNode:
 class Solution:
 
     @timeit
-    def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:
-        bhead = ListNode()
-        shead = ListNode()
-        bcurr = bhead
-        scurr = shead
-        curr = head
-        while curr:
-            if curr.val < x:
-                scurr.next = curr
-                scurr = scurr.next
-            else:
-                bcurr.next = curr
-                bcurr = bcurr.next
-            curr = curr.next
-        scurr.next = bhead.next # bhead.next because bhead is dummy node
-        bcurr.next = None
-        return shead.next # shead is a dummy one, next is correct
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        reversed_head = None # this is a head, but initially this is an end of the list
+        current = head
+        while current:
+            tmp = current.next # store next element as we will crash link to the next
+            current.next = reversed_head # 1 element will be the last one
+            reversed_head = current # Store current enty as an element of the reversed list
+            current = tmp # go to the next one, as we crashed link
+        return reversed_head
         
     def get_array(self, node: ListNode):
         result = []
@@ -53,20 +45,20 @@ class Solution:
 if __name__ == '__main__':
     solution = Solution()
     cases = [
-        (([1,4,3,2,5,2], 3), [1,2,2,4,3,5]),
-        (([2,1], 2), [1,2])
+        ([1,4,3,2,5,2], [2,5,2,3,4,1]),
+        ([2,1], [1,2])
     ]
     for case in cases:
         head = None
         prev = None
-        for val in case[0][0]: 
+        for val in case[0]: 
             node = ListNode(val)
             if not head:
                 head = node
             if prev:
                 prev.next = node
             prev = node
-        result = solution.partition(head, case[0][1])
+        result = solution.reverseList(head)
         judge(solution.get_array(result), case[1])
     
 
