@@ -18,13 +18,10 @@ def timeit(func):
 class Solution:
 
     def findSubstring(self, s: str, words: List[str]) -> List[int]:
-        
         # Count word count in array
         words_count = Counter(words)
-
         # Word len is important as this will be the size of the step
         word_len = len(words[0])
-
         # We will iterate for an offset from 0 to word_len
         result = []
         for offset in range(word_len):
