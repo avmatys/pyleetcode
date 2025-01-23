@@ -42,7 +42,7 @@ class Solution:
                 number, offset = self.calculate(s[idx + 1 : ])
                 idx += offset
             elif ch == ')':
-                execute_operation(sign, numberå)
+                execute_operation(sign, number)
                 return sum(stack), idx + 1 # This will be like an offset                   
             idx += 1
         execute_operation(sign, number)
