@@ -36,6 +36,7 @@ class Solution:
             if ch.isdigit():
                 number = 10 * number + int(ch)
             if ch in '-+/*':  
+                
                 execute_operation(sign, number)
                 number, sign = 0, ch
             elif ch == '(':
