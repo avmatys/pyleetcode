@@ -100,7 +100,7 @@ class BSTIterator:
         return next_node.val
 
     def hasNext(self) -> bool:
-        return len(self.stack) or self.visit
+        return len(self.stack) > 0 or self.visit is not None
 
 def judge(result, expected):
     print(f'Result {result} Expected {expected}')
