@@ -28,7 +28,7 @@ class Solution:
                 stack.pop()
                 count += 1
             stack.append(digit)
-        while count < k:
+        while stack and count < k:
             stack.pop()
             count += 1
         while len(stack) > 1 and stack[0] == "0":
