@@ -30,32 +30,29 @@ def build_tree(arr, i = 0):
     return root
 
 
-# https://leetcode.com/problems/kth-smallest-element-in-a-bst/description/
+# https://leetcode.com/problems/validate-binary-search-tree
 class Solution:
 
     @timeit
-    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        if not root:
-            return []
-        result = None
-        count = 0
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        if root is None:
+            return False
+        prev = None
+        valid = True
         def inorder(node):
-            nonlocal count
-            nonlocal result
+            nonlocal prev
+            nonlocal valid
             if node is None:
                 return
-            # Get to the end of the left subtree, this is the first element in the sequence
             inorder(node.left)
-            # Now we can update counter becase we are on the lowest level
-            count += 1
-            # We can check if the condition is met and set the value and return
-            if count == k:
-                result = node.val
-                return
+            if prev is not None:
+                if node.val <= prev:
+                    valid = False
+                    return 
+            prev = node.val
             inorder(node.right)
         inorder(root)
-        return result
-
+        return valid
 
 def judge(result, expected):
     print(f'Result {result} Expected {expected}')
@@ -65,14 +62,13 @@ def judge(result, expected):
 if __name__ == '__main__':
     solution = Solution()
     cases = [
-        (([1,0,48,None,None,12,49], 1), 0),
-        (([5,3,6,2,4,None,None,1],3), 3),
-        (([1,0,2], 2), 1)
+        ([2,1,3], True),
+        ([5,1,4,None,None,3,6],False)
     ]
     for case in cases:
-        input = build_tree(case[0][0])
+        input = build_tree(case[0])
         expected = case[1]
-        result = solution.kthSmallest(input, case[0][1])
+        result = solution.isValidBST(input)
         judge(result, expected)
     
    
