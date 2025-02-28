@@ -16,7 +16,7 @@ def timeit(func):
 # https://leetcode.com/problems/kids-with-the-greatest-number-of-candies/description/
 class Solution:
 
-     def kidsWithCandies(self, candies: List[int], extraCandies: int) -> List[bool]:
+    def kidsWithCandies(self, candies: List[int], extraCandies: int) -> List[bool]:
         return [cnt + extraCandies >= max(candies) for cnt in candies]
 
 def judge(result, expected):
