@@ -37,6 +37,26 @@ class Solution:
         return " ".join(result)
 
 
+class SolutionRevised:
+
+    @timeit
+    def reverseWords(self, s: str) -> str:
+        n = len(s)
+        left, right = n - 1, n - 1
+        result = []
+        while left > -1 and right > -1:
+            while right > -1 and s[right] == ' ':
+                right -= 1
+            if right < 0:
+                break
+            left = right
+            while left > -1 and s[left] != ' ':
+                left -= 1
+            result.append(s[left + 1 : right + 1])
+            right = left - 1
+        return " ".join(result)
+        
+
 def judge(result, expected):
     print(f'Result {result} Expected {expected}')
     assert result == expected
@@ -44,6 +64,7 @@ def judge(result, expected):
 
 if __name__ == '__main__':
     solution = Solution()
+    solutionRev = SolutionRevised()
     cases = [
         ("the sky is blue", "blue is sky the"),
         ("  hello world  ", "world hello"),
@@ -54,6 +75,7 @@ if __name__ == '__main__':
         input = case[0]
         expected = case[1]
         judge(solution.reverseWords(input), expected)
+        judge(solutionRev.reverseWords(input), expected)
 
 
     
