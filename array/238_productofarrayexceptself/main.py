@@ -16,6 +16,7 @@ def timeit(func):
 # https://leetcode.com/problems/product-of-array-except-self/description/
 class Solution:
 
+    @timeit
     def productExceptSelf(self, nums: List[int]) -> List[int]:
         n = len(nums)
         output = [1] * n
@@ -29,7 +30,21 @@ class Solution:
             output[i] *= tmp
         return output
 
+class SolutionRev:
 
+    @timeit
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        result = [1] * n
+        # Calculate prefixes
+        for i in range(1,n):
+            result[i] = result[i-1] * nums[i-1]
+        # Calc suffix
+        suff = nums[-1]
+        for i in range(n-2, -1, -1):
+            result[i] *= suff
+            suff *= nums[i]
+        return result
 
 
 def judge(result, expected):
@@ -39,6 +54,7 @@ def judge(result, expected):
 
 if __name__ == '__main__':
     solution = Solution()
+    solution_rev = SolutionRev()
     cases = [
         ([1,2,3,4], [24,12,8,6]),
         ([-1,1,0,-3,3], [0,0,9,0,0])
@@ -47,6 +63,7 @@ if __name__ == '__main__':
         input = case[0]
         expected = case[1]
         judge(solution.productExceptSelf(input), expected)
+        judge(solution_rev.productExceptSelf(input), expected)
 
     
    
