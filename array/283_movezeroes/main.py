@@ -37,9 +37,33 @@ class Solution:
             nums[i] = 0
     
         return nums
+
+
+class SolutionRev:
+
+    @timeit
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        n = len(nums)
+        i, ptr = 0, 0
+        while i < n:
+            # Find non null value
+            while i < n and nums[i] == 0:
+                i += 1
+            # Swap null with non zero
+            if i < n and ptr < i:
+                nums[ptr] = nums[i]
+                nums[i] = 0
+            # Update ptr is non zero
+            ptr += 1
+            i += 1
+        # Set zeroes to the rest of the array
+        while ptr < n:
+            nums[ptr] = 0
+            ptr += 1
     
-    
-        
 
 def judge(result, expected):
     print(f'Result {result} Expected {expected}')
@@ -48,6 +72,7 @@ def judge(result, expected):
 
 if __name__ == '__main__':
     solution = Solution()
+    solution_rev = SolutionRev()
     cases = [
         ([0],[0]),
         ([1],[1]),
@@ -58,6 +83,7 @@ if __name__ == '__main__':
         input = case[0]
         expected = case[1]
         judge(solution.moveZeroes(input), expected)
+        judge(solution_rev.moveZeroes(input), expected)
 
 
     
