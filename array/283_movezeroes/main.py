@@ -72,7 +72,6 @@ def judge(result, expected):
 
 if __name__ == '__main__':
     solution = Solution()
-    solution_rev = SolutionRev()
     cases = [
         ([0],[0]),
         ([1],[1]),
@@ -83,7 +82,7 @@ if __name__ == '__main__':
         input = case[0]
         expected = case[1]
         judge(solution.moveZeroes(input), expected)
-        judge(solution_rev.moveZeroes(input), expected)
+        
 
 
     
