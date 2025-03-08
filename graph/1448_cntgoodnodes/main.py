@@ -30,23 +30,22 @@ def build_tree(arr, i = 0):
     return root
 
 
-# https://leetcode.com/problems/leaf-similar-trees/description/
+# https://leetcode.com/problems/count-good-nodes-in-binary-tree/description/
 class Solution:
 
     @timeit
-    def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
-        def get_leafs(root, leafs):
-            if not root:
-                return
-            if not root.left and not root.right:
-                leafs.append(root.val)
-                return
-            get_leafs(root.left, leafs)
-            get_leafs(root.right, leafs)
-        leafs1, leafs2 = [], []
-        get_leafs(root1, leafs1)
-        get_leafs(root2, leafs2)
-        return leafs1 == leafs2
+    def goodNodes(self, root: TreeNode) -> int:
+        def dfs(node, max_val):
+            if not node:
+                return 0
+            result = 0
+            if node.val >= max_val:
+                result += 1
+                max_val = max(max_val, node.val)
+            result += dfs(node.left, max_val)
+            result += dfs(node.right, max_val)
+            return result
+        return dfs(root, float('-inf'))
 
 def judge(result, expected):
     print(f'Result {result} Expected {expected}')
@@ -55,13 +54,12 @@ def judge(result, expected):
 if __name__ == '__main__':
     solution = Solution()
     cases = [
-        (([3,5,1,6,2,9,8,None,None,7,4],[3,5,1,6,7,4,2,None,None,None,None,None,None,9,8]), True)
+        ([3,1,4,3,None,1,5], 4)
     ]
     for case in cases:
-        input1 = build_tree(case[0][0])
-        input2 = build_tree(case[0][1])
+        input = build_tree(case[0])
         expected = case[1]
-        result = solution.leafSimilar(input1, input2)
+        result = solution.goodNodes(input)
         judge(result, expected)
     
    
