@@ -54,6 +54,21 @@ class Solution:
             return root
         return left or right
     
+class SolutionRev:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        self.ancestor = None
+        def dfs(node):
+            if not node:
+                return 0
+            left = dfs(node.left)
+            right = dfs(node.right)
+            curr = 1 if node in [p,q] else 0
+            if left + right + curr == 2:
+                self.ancestor = node
+            return max(left, right, curr)
+        dfs(root)
+        return self.ancestor
+
 def judge(result, expected):
     print(f'Result {result} Expected {expected}')
     assert result == expected
