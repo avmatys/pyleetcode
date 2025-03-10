@@ -44,7 +44,26 @@ class Solution:
         result = []
         bfs(root, 0, result)
         return result
-     
+
+class SolutionRev:
+     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        if not root:
+            return []
+        queue = deque([root])
+        result = []
+        while queue:
+            level_queue = deque()
+            while queue:
+                curr = queue.popleft()
+                if len(queue) == 0:
+                    result.append(curr.val)
+                if curr.left:
+                    level_queue.append(curr.left)
+                if curr.right:
+                    level_queue.append(curr.right)
+            queue = level_queue
+        return result
+
 def judge(result, expected):
     print(f'Result {result} Expected {expected}')
     for i in range(len(result)):       
