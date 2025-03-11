@@ -1,6 +1,7 @@
 from typing import List, Dict
 from datetime import datetime
 from typing import Optional
+from collections import defaultdict
 
 # Track execution time of the function
 def timeit(func):
@@ -56,6 +57,31 @@ class Solution:
         
         return -1.0
 
+class SolutionRev:
+    def dfs(self, graph, visited, start, end):
+        if end in graph[start]:
+            return graph[start][end]
+        for to in graph[start]:
+            if to not in visited:
+                visited.add(to)
+                weight = self.dfs(graph, visited, to, end)
+                if weight != -1:
+                    return graph[start][to] * weight
+        return -1
+
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+        # Build a graph
+        graph = defaultdict(defaultdict)
+        for (start, end), weight in zip(equations, values):
+            graph[start][start] = 1
+            graph[start][end] = weight
+            graph[end][start] = 1 / weight
+        # Go through the queires anc calc result
+        result = []
+        for start, end in queries:
+            result.append(self.dfs(graph, set(), start, end))
+        return result
+
 
     
 def judge(result, expected):
@@ -66,7 +92,7 @@ def judge(result, expected):
 
 
 if __name__ == '__main__':
-    solution = Solution()
+    solution = SolutionRev()
     cases = [
         (([["a","b"],["b","c"]], [2.0,3.0], [["a","c"],["b","a"],["a","e"],["a","a"],["x","x"]]), [6.00000,0.50000,-1.00000,1.00000,-1.00000])
     ]
