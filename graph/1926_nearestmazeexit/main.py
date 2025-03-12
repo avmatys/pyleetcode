@@ -16,7 +16,6 @@ def timeit(func):
 # https://leetcode.com/problems/nearest-exit-from-entrance-in-maze/description
 class Solution:
 
-    class Solution:
     def bfs(self, maze, entrance):
         n = len(maze)
         m = len(maze[0])
