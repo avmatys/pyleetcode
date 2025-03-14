@@ -66,6 +66,63 @@ class MinHeap:
     def peek(self):
         return self.elements[0]
 
+
+class MinHeapRev:
+
+    def __init__(self):
+        self.elements = []
+        self.size = 0
+
+    def insert(self, value):
+        self.elements.append(value)
+        self.size += 1
+        self.sift_up(self.size - 1)
+
+    def sift_up(self, i):
+        while 0 < i < self.size:
+            parent = (i - 1) // 2
+            if self.elements[i] < self.elements[parent]:
+                self.elements[i], self.elements[parent] =  self.elements[parent], self.elements[i]
+                i = parent
+            else:
+                break
+
+    def sift_down(self, i):
+        while 2 * i + 1 < self.size:
+            left, right = 2 * i + 1, 2 * i + 2
+            cmp = left
+            if right < self.size and self.elements[right] < self.elements[cmp]:
+                cmp = right
+            if self.elements[i] > self.elements[cmp]:
+                self.elements[i], self.elements[cmp] = self.elements[cmp], self.elements[i]
+                i = cmp
+            else:
+                break
+
+    def pop(self):
+        if self.size == 0:
+            return None
+        self.elements[0], self.elements[self.size - 1] =  self.elements[self.size - 1], self.elements[0]
+        value = self.elements.pop()
+        self.size -= 1
+        self.sift_down(0)
+        return value
+
+    def peek(self):
+        if self.size == 0:
+            return None
+        return self.elements[0]
+
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        heap = MinHeap()
+        for num in nums:
+            heap.insert(num)
+            if heap.size > k:
+                heap.pop()
+        return heap.peek()
+
+
 # https://leetcode.com/problems/kth-largest-element-in-an-array/description/
 class Solution:
     @timeit
