@@ -32,7 +32,24 @@ class Solution:
         
         combine([], 1, 0, 0)
         return result
-           
+        
+        
+class SolutionRev:
+    def combine(self, result, path, start, k, n):
+        if len(path) == k:
+            if sum(path) == n:
+                result.append(path[:])
+            return
+        for num in range(start, 10):
+            path.append(num)
+            self.combine(result, path, num + 1, k, n)
+            path.pop()
+        
+    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
+        result = []
+        self.combine(result, [], 1, k, n)
+        return result
+        
     
 
 def judge(result, expected):
