@@ -28,7 +28,20 @@ class Solution:
             else:
                 curr_end = coord[1]
         return shots
-        
+
+class SolutionRev:
+
+    def findMinArrowShots(self, points: List[List[int]]) -> int:
+        spoints = sorted(points, key=lambda x: x[1])
+        count = len(spoints)
+        last = 0
+        for i in range(1, len(spoints)):
+            if spoints[last][1] >= spoints[i][0]:
+                count -= 1
+            else:
+                last = i
+        return count      
+
     
 def judge(result, expected):
     print(f'Result {result} Expected {expected}')
