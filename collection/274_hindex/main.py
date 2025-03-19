@@ -33,6 +33,17 @@ class Solution:
                break
         return h
 
+class SolutioRev:
+    def hIndex(self, citations: List[int]) -> int:
+        count = [0] * 1001
+        for c in citations:
+            count[c] += 1
+        h, csum = 1001, 0
+        while csum < h:
+            h -= 1
+            csum += count[h]
+        return h
+
 def judge(result, expected):
     print(f'Result {result} Expected {expected}')
     assert result == expected
