@@ -56,6 +56,15 @@ class Solution:
         return jumps
 
 
+class SolutionRev
+    def jump(self, nums: List[int]) -> int:
+        imax, ilevel, steps = 0, 0, 0
+        for i in range(len(nums)-1):
+            imax = max(imax, i + nums[i])
+            if i == ilevel:
+                steps += 1
+                ilevel = imax
+        return steps
 
 def judge(result, expected):
     print(f'Result {result} Expected {expected}')
