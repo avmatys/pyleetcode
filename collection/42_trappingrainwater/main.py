@@ -28,6 +28,21 @@ class Solution:
         for i in range(n):
             water[i] = min(left_height[i], right_height[i]) - height[i]
         return sum(water)
+
+# Solution with monothonic stack
+class SolutionRev:
+    def trap(self, height: List[int]) -> int:
+        stack = []
+        n = len(height)
+        total = 0
+        for right in range(n):
+            while stack and height[stack[-1]] < height[right]:
+                bar = height[stack.pop()]   
+                if stack:
+                    left = stack[-1]
+                    total += (min(height[left], height[right]) - bar) * (right - left - 1)
+            stack.append(right)
+        return total
     
 
 def judge(result, expected):
