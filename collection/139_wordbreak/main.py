@@ -40,6 +40,29 @@ class Solution:
         return False
 
 
+class SolutionRev:
+    def check(self, s, word_dict, memo):
+        if s in memo:
+            return memo[s]
+        for i in range(len(s)):
+            prefix = s[:i + 1]
+            if prefix not in word_dict:
+                continue
+            suffix = s[i + 1 :]
+            if len(suffix) == 0 or self.check(suffix, word_dict, memo):
+                memo[s] = True
+                return True
+        memo[s] = False
+        return False
+
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        memo = dict()
+        return self.check(s, set(wordDict), memo)
+
+        
+        
+
+
 def judge(result, expected):
     print(f'Result {result} Expected {expected}')
     assert result == expected
