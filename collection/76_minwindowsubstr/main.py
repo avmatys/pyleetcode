@@ -43,6 +43,36 @@ class Solution:
                 left += 1
         return "" if min_size == float('inf') else s[min_idx : min_idx + min_size]
 
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        substr_cnt, substr_total = [0] * 256, 0
+        for ch in t:
+            substr_cnt[ord(ch)] += 1
+            substr_total += 1
+        window_cnt, window_total = [0] * 256, 0
+        left, min_idx, min_len = 0, -1, float('inf')
+        for right in range(len(s)):
+            rc = ord(s[right])
+            # We should track this letter as it's in the substr
+            if substr_cnt[rc] > 0:
+                window_cnt[rc] += 1 # Add number of the such letters
+                if window_cnt[rc] <= substr_cnt[rc]: # Check if we didn't exceed number of the needed letters in the substr
+                    window_total += 1 
+            # Check if we can make a window smaller
+            while window_total >= substr_total:
+                # Recalc min values
+                curr_len = right - left + 1
+                if curr_len < min_len:
+                    min_idx, min_len = left, curr_len
+                lc = ord(s[left])
+                # We should track this letter as it's in the substring
+                if substr_cnt[lc] > 0:
+                    window_cnt[lc] -= 1 # Substract letter from the list
+                    if window_cnt[lc] < substr_cnt[lc]: # Check if we still have enough letters to cover everything in the substr
+                        window_total -= 1
+                left += 1
+        return "" if min_idx == -1 else s[min_idx:min_idx + min_len]      
+
 
 def judge(result, expected):
     print(f'Result {result} Expected {expected}')
