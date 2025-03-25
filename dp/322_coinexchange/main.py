@@ -29,6 +29,22 @@ class Solution:
                 dp[i] = 1 + min(coins_count)
         return dp[amount] if dp[amount] != float('inf') else -1
 
+class SolutionRev:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        dp = [float('inf')] * (amount + 1)
+        dp[0] = 0
+        for i in range(amount + 1):
+            if coins.count(i) > 0:
+                dp[i] = 1
+            else:
+                c_paths = [dp[i-c] for c in coins if i > c]
+                if c_paths:
+                    dp[i] = min(c_paths) + 1
+        return -1 if dp[amount] == float('inf') else dp[amount]
+
+        
+        
+
 def judge(result: str, expected: str):
     print(f'Result:   {result}')
     print(f'Expected: {expected}')
