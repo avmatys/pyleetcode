@@ -47,7 +47,21 @@ class Solution:
 
         return result
     
-    
+class SolutionRev:
+
+    def summaryRanges(self, nums: List[int]) -> List[str]:
+        result = []
+        start, n = 0, len(nums)
+        for i in range(1, n + 1):
+            if i == n or nums[i] - nums[i - 1] != 1:
+                if start == i - 1:
+                    result.append(f"{nums[start]}")
+                else:
+                    result.append(f"{nums[start]}->{nums[i - 1]}")
+                start = i
+        return result
+            
+            
         
 
 def judge(result, expected):
