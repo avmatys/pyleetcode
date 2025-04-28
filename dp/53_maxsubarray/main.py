@@ -28,6 +28,24 @@ class Solution:
         return max(dp)
     
 
+# Another version without dp and without additional memory
+# Simple and clear version
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        n = len(nums)
+        res = nums[0]
+        csum = nums[0]
+        for i in range(1,n):
+            # Start a new sequence
+            if csum < 0:
+                csum = nums[i]
+            else:
+                csum += nums[i]
+            res = max(res, csum)
+        return res
+
+
+
 def judge(result, expected):
     print(f'Result {result} Expected {expected}')
     assert result == expected
