@@ -15,8 +15,7 @@ class Node {
 }
 
 class DoubleLinkedList implements Iterable<Node> {
-
-    Node head = null;;
+    Node head = null;
     Node tail = null;
     int currIdx = 0;
 
