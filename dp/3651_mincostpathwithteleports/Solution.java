@@ -43,14 +43,11 @@ class Solution {
         for (int i = 0; i < m; i++)
             Arrays.fill(memo[i], Integer.MAX_VALUE);
         memo[0][0] = 0;
-        // Prepare a flat list of values with indexes
+        // Prepare a flat list of values 
         int[][] flat = new int[m * n][2];
-        for(int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
+        for(int i = 0; i < m; i++) 
+            for (int j = 0; j < n; j++) 
                 flat[n*i + j] = new int[] { i, j };
-            }
-        }
-        // Sort ascending
         Arrays.sort(flat, (a, b) -> -Integer.compare(grid[a[0]][a[1]], grid[b[0]][b[1]]));
         // Solve with k = 0
         base(grid, memo);
